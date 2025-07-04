@@ -1,6 +1,6 @@
 from transformers import pipeline
 
-# Load a smaller summarization model (lightweight & Streamlit-compatible)
+# Use a small, pre-trained summarization model
 summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
 def generate_summary(text):
@@ -8,7 +8,7 @@ def generate_summary(text):
         return "No data to summarize."
 
     try:
-        # Limit input to 1024 characters (to prevent token overflow)
+        # Trim to avoid long input (which can break on free hosting)
         text = text[:1024]
 
         summary = summarizer(
